@@ -11,19 +11,40 @@ struct rgb
 
 struct rgb sobel_operator(int x, int y, bitmap_image image)
 {
+  sobel_matrix = new struct rgb[3][3];
   pixel = new struct rgb;
-  sobel_matrix = new int[3][3];
 
   // sobel matrix filling with image borders check
-  image.get_pixel()
-
   for (int i=0; i<3; i++)
   {
-    if (y == 0)
-      for (int j=0; j<3; j++)
-    	sobel_atrix[i][]
+      if ( ((y == 0) && (i == 0)) || ((y == (image.width()-1)) && (i==2)) ) // nullify border pixels if in the 1st row, or the lower row of the picture
+        for (int j=0; j<3; j++)
+        {
+          sobel_matrix[i][j].red = 0;
+          sobel_matrix[i][j].green = 0;
+          sobel_matrix[i][j].blue = 0;
+        }
+      else
+        for (int j=0; j<3; j++)
+        {
+          if ( ((x == 0) && (j == 0)) || ((x == (image.height()-1)) && (j == 2)) ) // nulify border pixels if in the 1st or the last column
+          {
+            sobel_matrix[i][j].red = 0;
+            sobel_matrix[i][j].green = 0;
+            sobel_matrix[i][j].blue = 0;
+          }
+          else
+          {
+            image.get_pixel( (x-1+j),
+                             (y-1+i),
+                             &(sobel_matrix[i][j].red),
+                             &(sobel_matrix[i][j].green),
+                             &(sobel_matrix[i][j].blue) );
+          }
+        }
   }
 
+  //...work with formed sobel's matrix..
 
   return pixel;
 }
