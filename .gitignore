@@ -1,0 +1,9 @@
+# ignore Debug directory
+/Debug
+# ignore all the bmp images
+/*.bmp
+# except lena.bmp which is the default one
+!/lena.bmp
+# ignore Eclipse .project files
+/.*project
+
