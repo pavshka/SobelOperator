@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../headers/bitmap_image.hpp"
+#include "headers/bitmap_image.hpp"
 
 class rgb
 {
