@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "headers/bitmap_image.hpp"
+#include "bitmap_image.hpp"
 
 class rgb
 {
@@ -51,21 +51,14 @@ rgb sobel_operator(int x,int y, bitmap_image image)
     }
   }
 
-  // Grayscale, all the values in channels are the same
-  for (int i=0; i<3; i++)
-	for (int j=0; j<3; j++)
-	{
-	  sobel_matrix[i][j].red = sobel_matrix[i][j].red * 0.3 + sobel_matrix[i][j].green * 0.59 + sobel_matrix[i][j].blue * 0.11;
-	}
-
   // Now, we'll be working only with red channel, as in green and blue channels values are the same.
   int Gx_matrix[3][3];
   int Gy_matrix[3][3];
-  // Sobel operator for X axis
+  // Sobel operator matrix for X axis
   Gx_matrix[0][0] = -1; Gx_matrix[0][1] = 0; Gx_matrix[0][2] = 1;
   Gx_matrix[1][0] = -2; Gx_matrix[1][1] = 0; Gx_matrix[1][2] = 2;
   Gx_matrix[2][0] = -1; Gx_matrix[2][1] = 0; Gx_matrix[2][2] = 1;
-  // Sobel operator for Y axis
+  // Sobel operator matrix for Y axis
   Gy_matrix[0][0] =  -1; Gy_matrix[0][1] = -2;  Gy_matrix[0][2] = -1;
   Gy_matrix[1][0] =  0;  Gy_matrix[1][1] = 0;   Gy_matrix[1][2] = 0;
   Gy_matrix[2][0] = 1;   Gy_matrix[2][1] = 2;   Gy_matrix[2][2] = 1;
@@ -109,6 +102,7 @@ int main(void)
       printf("Error - Failed to open lena.bmp \n");
       return 1;
     }
+  image.convert_to_grayscale();
 
   bitmap_image result(image.height(),image.width());
 
